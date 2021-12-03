@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>文库文字转换[Word]</title>
+	
+</head>
+<body style="height: auto; overflow: visible;">
+	<div style="width: 100%;text-align: center;">
+		<h3>欢迎使用纸宝の百度文库文字转换 V2.0</h3>
+		<hr/>
+	</div>
+	<div style="width: 100%;text-align: left;margin-left: 3%;">
+		<p>第1步：打开你需要下载的百度文库页面（<b><u>注意：当前只支持word格式文档！</u></b>）；</p>
+		<p>第2步：展开文档所有页面（<b><u>注意：付费试读文档只能获取免费试读部分！</u></b>）</p>
+		<p>第3步：按<b> [F12] </b>键查看网页代码（Safari用户使用组合键Option+Command+I）；</p>
+		<p>第4步：找到<i> " &ltdiv id="app" class="classic"... &lt/div&gt == $0" </i>一行，选中并右键，选择”复制->复制元素“；</p>
+		<!-- <input type="text" id="url" style="width: 90%;height: 48px; margin-bottom: 8px;"> -->
+		<!-- <br /> -->
+		<!-- <button onclick="getHTML()">点击生成网页源代码</button> -->
+		<hr/>
+		<h4>请粘贴第4步中复制的HTML网页源代码：</h4>
+	</div>
+	<div style="width: 100%;text-align: left;margin-left: 3%;">
+		<textarea rows="10" style="width:80%; margin-bottom: 8px;" id="source"></textarea>
+	</div>
+	<div style="width: 100%;text-align: left;margin-left: 3%; margin-bottom: 8px;">
+		<button onclick="getHTMLtext()">点击生成您所需的文档</button>
+	</div>
+	
+	<div id="tempo" style="width: 80%; margin-left: 3%; margin-bottom: 8px;">
+		<h4 id="GEN"></h4>
+	</div>
+
+	<div style="width: 100%;text-align: left;margin-left: 3%;">
+		<textarea rows="30" style="width:80%; margin-bottom: 8px;" id="htmltxt"></textarea>
+	</div>
+
+	<script>
+		// alert('欢迎使用纸宝の百度文库文字转换！');		
+		// htmltxt.innerHTML = "source code..."; 
+
+		function getHTMLtext(){
+			var source = document.getElementById("source").value;
+			var j;
+			htmltxt0 = "正在生成文本……\n"+source+"\n\n";
+			htmltxt = ""
+			document.getElementById("GEN").innerHTML = htmltxt0;
+			console.log(source[0]+source[1]+source[2]);
+			cond0 = "<div id=\"pageNo-"
+
+			for (var dd = 0; dd <source.length-15; dd++) {
+				cond = source[dd]+source[dd+1]+source[dd+2]+source[dd+3]+source[dd+4]+source[dd+5]+source[dd+6]+source[dd+7]+source[dd+8]+source[dd+9]+source[dd+10]+source[dd+11]+source[dd+12]+source[dd+13]+source[dd+14]+source[dd+15];
+				if (cond==cond0){
+					for (var i = dd; i<source.length-15; i++) {
+						if (source[i]+source[i+1]+source[i+2]=="<p "){
+							for (j = i+3; j <source.length-15; j++) {
+								if (source[j]==">"){var startP = j+1;break;}
+							}
+							for (j = startP; j <source.length-3; j++) {
+								if (source[j]+source[j+1]+source[j+2]+source[j+3]=="</p>"){
+									break;
+								}else {
+									htmltxt += source[j];
+								}
+								i = j;
+							}
+							if (source[j+4]+source[j+5]+source[j+6]+source[j+7]+source[j+8]+source[j+9]=="</div>") {break;}
+						}
+						dd = i;
+					}
+				}
+			}
+			htmltxt = htmltxt.replace(/&nbsp;&nbsp;&nbsp;&nbsp;/g,"\r")
+			htmltxt = htmltxt.replace(/&nbsp;&nbsp;&nbsp;/g,"\r")
+			htmltxt = htmltxt.replace(/&nbsp;&nbsp;/g,"    ")
+			htmltxt = htmltxt.replace(/&nbsp;/g," ")
+			htmltxt = htmltxt.replace(/<span.*<\/span>/g,"")
+			document.getElementById("htmltxt").value = htmltxt;
+			document.getElementById("GEN").innerHTML = "文本获取完毕！";
+		}
+	</script>
+</body>
+</html>
