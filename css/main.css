@@ -285,11 +285,11 @@ h3:after {
   background: var(--nd-blue);
 }
 
-#page-navbar nav {
+#navbar nav {
   padding: 1.5rem;
 }
 
-#page-navbar img {
+#navbar img {
   width: 30px;
 }
 
@@ -301,7 +301,7 @@ h3:after {
   margin-bottom: 2rem !important;
 }
 
-#page-footer {
+#footer {
   background: var(--nd-blue);
   padding: 2rem 0 1.5rem;
 }
@@ -337,7 +337,7 @@ cite {
   color: var(--white);
 }
 
-#page-navbar .active {
+#navbar .active {
   border-bottom: 3px solid white;
 }
 
@@ -417,7 +417,7 @@ input::placeholder {
 
 /* Media queries ------------------------------------------- */
 @media screen and (max-width: 560px) {
-  #page-navbar .nav-item {
+  #navbar .nav-item {
     padding: .1rem 2rem .1rem 1.5rem;
     margin-top: .35rem;
     border-bottom: 1px dotted var(--silver);
@@ -427,7 +427,7 @@ input::placeholder {
     margin-top: -4rem;
   }
 
-  #page-navbar #projects {
+  #navbar #projects {
     border: none !important;
   }
 }
