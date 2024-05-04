@@ -1,4 +1,8 @@
 /* Global page and element settings ----------------------------------------------------- */
+html {
+  font-size: 12px;
+}
+
 body {
   font-size: 12px;
   font-family: "Open Sans", Arial, sans-serif;
