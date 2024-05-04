@@ -431,3 +431,17 @@ input::placeholder {
     border: none !important;
   }
 }
+
+/* Customization ------------------------------ */
+.no-border {
+  border: none !important;
+}
+
+.no-background {
+  background-color: transparent !important;
+}
+
+.table.no-border td,
+.table.no-border th {
+  border: none !important;
+}
