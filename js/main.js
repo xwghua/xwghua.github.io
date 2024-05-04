@@ -1,89 +1,102 @@
 $(document).ready(function() {
 
-  // Scroll to top button ----------------------------------------------------------
-  // When the user scrolls down 20px from the top of the document, show the button
-  window.onscroll = function() {
-    scrollFunction()
-  };
+  // Write the page footer
+  $("#page-footer").load("footer.html", function() {
 
-  function scrollFunction() {
-    if (document.body.scrollTop > 350 || document.documentElement.scrollTop > 350) {
-      document.getElementById("topper").style.display = "block";
-    } else {
-      document.getElementById("topper").style.display = "none";
-    }
-  }
+    $(document).tooltip({
+      selector: '[data-toggle="tooltip"]'
+    });
 
-  // When the user clicks on the button, scroll to the top of the document
-  function topFunction() {
-    document.body.scrollTop = 0; // For Safari
-    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-  }
+    console.log("Footer loaded.");
+    // Add the current year to copyright
+    const thisYear = new Date().getFullYear();
+    $("#footer-year").text(thisYear);
 
-  $("#topper").on("click", function() {
-    $("html").animate({
-      scrollTop: 0
-    }, 400);
   });
 
-  // tooltips function
-  $(function() {
-    $('[data-toggle="tooltip"]').tooltip()
-  })
+  // Scroll to top button ---------------------------------------------
+
+  // write the button to the page
+  window.onscroll = function() {
+
+    if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+      document.getElementById("back-to-top").style.display = "block";
+    } else {
+      document.getElementById("back-to-top").style.display = "none";
+    }
+  };
+
+
+  // Scroll to top
+  $('#back-to-top').on("click", function(event) {
+
+    if (
+      location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') &&
+      location.hostname == this.hostname
+    ) {
+      // Figure out element to scroll to
+      var target = $(this.hash);
+      target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+      // Does a scroll target exist?
+      if (target.length) {
+        // Only prevent default if animation is actually gonna happen
+        event.preventDefault();
+        $('html, body').animate({
+          scrollTop: target.offset().top
+        }, 300, function() {
+          // Callback after animation
+          // Must change focus!
+          var $target = $(target);
+          $target.focus();
+          if ($target.is(":focus")) { // Checking if the target was focused
+            return false;
+          } else {
+            $target.attr('tabindex', '-1'); // Adding tabindex for elements not focusable
+            $target.focus(); // Set focus again
+          }
+        });
+      }
+    }
+  });
 
   // Initally hide the read more div
-     $("#read-more").css("display", "none");
+  $("#read-more").css("display", "none");
 
-     // Show more on click
-     $("#badge-more").on("click", function() {
+  // Show more on click
+  $("#badge-more").on("click", function() {
 
-        // Show/hide the div
-        $("#read-more").fadeToggle("fast");
+    // Show/hide the div
+    $("#read-more").slideToggle();
 
-        // Change the button
-        if ($("#badge-more").text() == "more") {
-           $("#badge-more").text("less");
-        } else {
-           $("#badge-more").text("more");
-        }
+    // Change the button
+    if ($("#badge-more").text() == "More") {
+      $("#badge-more").empty().append("Less");
+    } else {
+      $("#badge-more").empty().append("More");
+    }
 
-     });
+  });
 
-     // popover function
-     $('[data-toggle="popover"]').popover();
+  // open all accordion panels for possible printing or close -----------
+  $(".expander").on("click", function() {
 
-     // open all accordion panels for possible rinting
-     // $(".expander").on("click", function() {
-     //
-     //    // Change the button
-     //    if ($(".expander").text() == "show all") {
-     //       $(".expander").text("hide all");
-     //       $(".panel-collapse").addClass("in");
-     //       $(".panel-default a").attr("aria-expanded", "true").removeClass("collapsed");
-     //    } else {
-     //       $(".expander").text("show all");
-     //       $(".panel-collapse").removeClass("in");
-     //       $(".panel-default a").attr("aria-expanded", "false").addClass("collapsed");
-     //    }
-     //
-     // });
+    if ($(".expander").text() === "show all") {
 
-     // open all accordion panels for possible printing or close
-   $(".expander").on("click", function() {
+      // Change the button text
+      $(".expander").text("hide all");
+      // show all accordions
+      $("#wrapper .collapse").collapse('show');
+      $("#teaching-section .btn").prev().find("i").addClass("fa-rotate-45");
 
-      if ($(".expander").text() === "show all") {
+    } else {
+      // Change the button text
+      $(".expander").text("show all");
+      // hide all accordions
+      $("#wrapper .collapse").collapse('hide');
+      $("#teaching-section .btn").prev().find("i").removeClass("fa-rotate-45");
+    }
+  });
 
-        // Change the button text
-         $(".expander").text("hide all");
-         // show all accordions
-         $(".panel-collapse").collapse('show');
-
-      } else {
-        // Change the button text
-         $(".expander").text("show all");
-         // hide all accordions
-         $(".panel-collapse").collapse('hide');
-      }
-   });
 
 });
+// document ready
