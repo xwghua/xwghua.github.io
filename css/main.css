@@ -148,19 +148,19 @@ h3:after {
 }
 
 /* Teaching section --------------------------------------------------------- */
-#teaching-section .card {
+#teaching-section .accordion {
   border: none;
   border-bottom: 1px dotted var(--silver) !important;
   background: none;
 }
 
-#teaching-section .card-header {
+#teaching-section .accordion-header {
   background: transparent !important;
   padding: .3rem 0rem 0 .3rem;
   border-bottom: none !important;
 }
 
-#teaching-section .card-body {
+#teaching-section .accordion-body {
   background: transparent !important;
   padding: .3rem 1rem 0 1rem;
   border-bottom: none !important;
